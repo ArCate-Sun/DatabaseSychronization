@@ -1,4 +1,4 @@
-package com.hanbon.sql;
+package cc.arcate.sql;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -8,11 +8,17 @@ import java.sql.SQLException;
  * Created by ACat on 17/01/2018.
  * ACat i lele.
  */
-public class SqlType {
+public enum  SqlType {
 
-	public static final String SQL_SERVER	= "SQL Server";
-	public static final String MYSQL		= "MySQL";
-	public static final String ORACLE		= "Oracle";
+	SQL_SERVER("SQL Server"),
+	MYSQL("MySQL"),
+	ORACLE("Oracle");
+
+	private String typeName;
+
+	SqlType(String typeName) {
+		this.typeName = typeName;
+	}
 
 	/**
 	 * 获取数据库类型
@@ -22,10 +28,10 @@ public class SqlType {
 	 * @return		SqlType.SQL_SERVER 		=> Microsoft SQL Server
 	 * 				SqlType.MYSQL			=> MySQL
 	 * 				SqlType.ORACLE			=> Oracle
-	 * 				""						=> 未知或暂未支持的数据库
+	 * 				null					=> 未知或暂未支持的数据库
 	 * @throws SQLException
 	 */
-	public static String getSqlType(Connection connection) throws SQLException {
+	public static SqlType getSqlType(Connection connection) throws SQLException {
 		return getSqlType(connection.getMetaData());
 	}
 
@@ -34,10 +40,13 @@ public class SqlType {
 	 * 其返回值从 SqlType 中取值
 	 *
 	 * @param metaData
-	 * @return
+	 * @return		SqlType.SQL_SERVER 		=> Microsoft SQL Server
+	 * 				SqlType.MYSQL			=> MySQL
+	 * 				SqlType.ORACLE			=> Oracle
+	 * 				null					=> 未知或暂未支持的数据库
 	 * @throws SQLException
 	 */
-	public static String getSqlType(DatabaseMetaData metaData) throws SQLException {
+	public static SqlType getSqlType(DatabaseMetaData metaData) throws SQLException {
 		String productName = metaData.getDatabaseProductName();
 		switch (productName) {
 			case "MySQL":
@@ -48,4 +57,5 @@ public class SqlType {
 				return null;
 		}
 	}
+
 }

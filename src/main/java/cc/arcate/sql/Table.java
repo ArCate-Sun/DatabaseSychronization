@@ -1,6 +1,6 @@
-package com.hanbon.sql;
+package cc.arcate.sql;
 
-import com.hanbon.tools.SqlMaker;
+import cc.arcate.tools.sql.maker.SqlFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,15 +11,15 @@ import java.util.List;
  */
 public class Table {
 
-	private String sqlType;			// 数据库类型, 应取 SqlType 中的值
+	private SqlType sqlType;			// 数据库类型, 应取 SqlType 中的值
 	private String name;			// 表名称
 	private List<Column> columns = new ArrayList<>();    // 所有键属性的有序排列
 
-	public String getSqlType() {
+	public SqlType getSqlType() {
 		return sqlType;
 	}
 
-	public void setSqlType(String sqlType) {
+	public void setSqlType(SqlType sqlType) {
 		this.sqlType = sqlType;
 	}
 
@@ -41,6 +41,6 @@ public class Table {
 
 	@Override
 	public String toString() {
-		return SqlMaker.makeTableCreationSQL(this);
+		return SqlFactory.makeCreationSQL(this);
 	}
 }

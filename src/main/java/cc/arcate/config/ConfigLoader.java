@@ -1,6 +1,9 @@
-package com.hanbon.config;
+package cc.arcate.config;
 
-import java.io.*;
+import cc.arcate.tools.Log;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -26,6 +29,8 @@ public class ConfigLoader {
 
 	private static String configPath;						// 配置文件路径
 	private static Properties config = new Properties();	// 获取配置信息的对象
+
+	private static Log log = new Log();
 
 	static {
 		loadPropertiesFromRecources("database-config.properties");
@@ -138,5 +143,15 @@ public class ConfigLoader {
 	// 测试
 	public static void main(String[] args) throws IOException {
 		ConfigLoader.loadProperties(Objects.requireNonNull(ConfigLoader.class.getClassLoader().getResource("database-config.properties")).getPath());
+	}
+
+	public static boolean isLogSQL() {
+		// TODO...
+		return true;
+	}
+
+	public static Log getLog() {
+		// TODO...
+		return log;
 	}
 }

@@ -1,9 +1,10 @@
-package com.hanbon.tools;
+package cc.arcate.tools;
 
-import com.hanbon.config.DBGlobal;
-import com.hanbon.sql.Column;
-import com.hanbon.sql.SqlType;
-import com.hanbon.sql.Table;
+import cc.arcate.sql.Column;
+import cc.arcate.config.DBGlobal;
+import cc.arcate.sql.SqlType;
+import cc.arcate.sql.Table;
+import cc.arcate.tools.sql.maker.SqlFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class Tables {
 		Statement stmt;
 		try {
 			stmt = connection.createStatement();
-			return stmt.executeUpdate(SqlMaker.makeTableCreationSQL(table)) != 0;
+			return stmt.executeUpdate(SqlFactory.makeCreationSQL(table, SqlType.getSqlType(connection))) != 0;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -117,8 +118,8 @@ public class Tables {
 	 * @return	表结构
 	 * @throws SQLException
 	 */
-	public static Table getTableStructure(Connection connection, String tableName, String sqlType) throws SQLException {
-		return getTableStructure(connection.getMetaData(), tableName, SqlType.getSqlType(connection));
+	public static Table getTableStructure(Connection connection, String tableName, SqlType sqlType) throws SQLException {
+		return getTableStructure(connection.getMetaData(), tableName, sqlType);
 	}
 
 	/**
@@ -142,7 +143,7 @@ public class Tables {
 	 * @return	表结构
 	 * @throws SQLException
 	 */
-	public static Table getTableStructure(DatabaseMetaData metaData, String tableName, String sqlType) throws SQLException {
+	public static Table getTableStructure(DatabaseMetaData metaData, String tableName, SqlType sqlType) throws SQLException {
 
 		// 新建数据表结构对象, 并为其赋值表名, 数据库类型
 		Table structure = new Table();

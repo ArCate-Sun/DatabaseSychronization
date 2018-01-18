@@ -1,0 +1,9 @@
+package cc.arcate.tools.sql.maker.impl;
+
+/**
+ * Created by ACat on 17/01/2018.
+ * ACat i lele.
+ */
+public class SqlMakerForOracle extends SqlMaker {
+
+}

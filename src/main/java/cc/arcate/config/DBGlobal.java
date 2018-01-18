@@ -1,6 +1,9 @@
-package com.hanbon.config;
+package cc.arcate.config;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * 在此类静态获取数据库的链接

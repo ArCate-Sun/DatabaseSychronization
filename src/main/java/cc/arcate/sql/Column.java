@@ -1,7 +1,6 @@
-package com.hanbon.sql;
+package cc.arcate.sql;
 
-import com.hanbon.sql.SqlType;
-import com.hanbon.tools.SqlMaker;
+import cc.arcate.tools.sql.maker.SqlFactory;
 
 /**
  * 键的属性
@@ -12,11 +11,11 @@ import com.hanbon.tools.SqlMaker;
 public class Column {
 
 	// nullable 可取的值
-	private static final int COLUMN_NO_NULLS = 0;
-	private static final int COLUMN_NULLABLE = 1;
-	private static final int COLUMN_NULLABLE_UNKNOWN = 2;
+	public static final int COLUMN_NO_NULLS = 0;
+	public static final int COLUMN_NULLABLE = 1;
+	public static final int COLUMN_NULLABLE_UNKNOWN = 2;
 
-	private String sqlType;        		// 数据库类型, 应取 SqlType 中的值
+	private SqlType sqlType;        		// 数据库类型, 应取 SqlType 中的值
 	private String name;				// 键名
 	private String typeName;			// 类型名
 	private int size;					// 键长度
@@ -26,11 +25,11 @@ public class Column {
 	private boolean isPrimaryKey;		// 是否为主键
 	private boolean isAutoIncrement;	// 是否自增
 
-	public String getSqlType() {
+	public SqlType getSqlType() {
 		return sqlType;
 	}
 
-	public void setSqlType(String sqlType) {
+	public void setSqlType(SqlType sqlType) {
 		this.sqlType = sqlType;
 	}
 
@@ -108,6 +107,6 @@ public class Column {
 
 	@Override
 	public String toString() {
-		return SqlMaker.makeColumnCreationSQL(this);
+		return SqlFactory.makeColumnSQL(this);
 	}
 }
