@@ -1,10 +1,10 @@
-package cc.arcate.tools;
+package cc.arcate.util;
 
 import cc.arcate.sql.Column;
+import cc.arcate.sql.Table;
+import cc.arcate.util.sql.maker.SqlFactory;
 import cc.arcate.config.DBGlobal;
 import cc.arcate.sql.SqlType;
-import cc.arcate.sql.Table;
-import cc.arcate.tools.sql.maker.SqlFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -46,23 +46,6 @@ public class Tables {
 		attr.setRemarks(resultSet.getString(REMARKS));
 
 		return attr;
-	}
-
-	/**
-	 * 为数据库创建数据表
-	 * @param connection	数据库的 Connection
-	 * @param table			数据表结构对象
-	 * @return
-	 */
-	private static boolean createTable(Connection connection, Table table) {
-		Statement stmt;
-		try {
-			stmt = connection.createStatement();
-			return stmt.executeUpdate(SqlFactory.makeCreationSQL(table, SqlType.getSqlType(connection))) != 0;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
 	}
 
 	/**
@@ -177,6 +160,23 @@ public class Tables {
 	}
 
 	/**
+	 * 为数据库创建数据表
+	 * @param connection	数据库的 Connection
+	 * @param table			数据表结构对象
+	 * @return
+	 */
+	public static boolean createTable(Connection connection, Table table) {
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			return stmt.executeUpdate(SqlFactory.makeCreationSQL(table, SqlType.getSqlType(connection))) != 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
 	 * 从源数据库中将所有的数据表结构复制到同步数据库中
 	 * @param source	源数据库的 Connection
 	 * @param target	同步数据库的 Connection
@@ -220,6 +220,7 @@ public class Tables {
 		Table structure = getTableStructure(source, name);
 		return createTable(target, structure);
 	}
+
 
 	// 测试
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {

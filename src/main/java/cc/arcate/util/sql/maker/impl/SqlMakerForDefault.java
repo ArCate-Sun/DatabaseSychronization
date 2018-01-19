@@ -1,4 +1,4 @@
-package cc.arcate.tools.sql.maker.impl;
+package cc.arcate.util.sql.maker.impl;
 
 /**
  * Created by ACat on 17/01/2018.

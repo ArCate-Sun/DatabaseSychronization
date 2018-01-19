@@ -1,4 +1,4 @@
-package cc.arcate.tools.sql.maker.impl;
+package cc.arcate.util.sql.maker.impl;
 
 import cc.arcate.sql.Column;
 import cc.arcate.sql.Table;
@@ -21,6 +21,11 @@ public abstract class SqlMaker {
 	protected static final String LIMIT			= "{limit}";
 	protected static final String VALUES		= "{values}";
 	protected static final String COLUMNS		= "{columns}";
+	protected static final String KEY			= "{key}";
+	protected static final String COUNT			= "{count}";
+	protected static final String FROM			= "{from}";
+	protected static final String TO			= "{to}";
+
 
 	protected static final String CREATE_TABLE	= "create table {table_name} ({columns}) {config}";
 	protected static final String SELECT		= "select {column_names} from {table_name} {limit}";
@@ -74,22 +79,24 @@ public abstract class SqlMaker {
 		String sql = CREATE_TABLE;
 		sql = sql.replace(TABLE_NAME, tableName).
 				replace(COLUMNS, sqlColumns).
-				replace(CONFIG, config).
-				replace("null", "");
+				replace(CONFIG, config == null ? "" : config );
 		return sql;
 	}
 
 	protected String select(String tableName, String columnNames, String limit, String index) {
 
 		String sqlCols = columnNames == null || columnNames.equals("") ? "*" : columnNames;
-		String sqlLimit = limit == null || limit.equals("") ? "" : "where " + limit;
 		String sql = SELECT;
 		sql = sql.replace(TABLE_NAME, tableName).
 				replace(COLUMN_NAMES, sqlCols).
-				replace(LIMIT, sqlLimit).
-				replace("null", "");
+				replace(LIMIT, limit == null ? "" : limit);
 
 		return sql;
+	}
+
+	protected String selectFromTo(String tableName, String columnNames, String key, String index, int from, int to) {
+		// TODO... This method should be abstract.
+		return "";
 	}
 
 	protected String update(String tableName, Map<String, Object> kvs, String where) {
@@ -103,12 +110,10 @@ public abstract class SqlMaker {
 			if (sqlKVs.length() > 0) sqlKVs.deleteCharAt(sqlKVs.length() - 1);
 		}
 
-		String sqlWhere = where == null || where.equals("") ? "" : "where " + where;
 		String sql = UPDATE;
 		sql = sql.replace(TABLE_NAME, tableName).
 				replace(KEY_VALUES, sqlKVs).
-				replace(WHERE, sqlWhere).
-				replace("null", "");
+				replace(WHERE, where == null ? "" : where);
 
 		return sql;
 	}
@@ -144,18 +149,15 @@ public abstract class SqlMaker {
 		String sql = INSERT;
 		sql = sql.replace(TABLE_NAME, tableName).
 				replace(VALUES, sqlValues).
-				replace(COLUMNS, sqlColumns).
-				replace("null", "");
+				replace(COLUMNS, sqlColumns);
 
 		return sql;
 	}
 
 	protected String delete(String tableName, String where) {
-		String sqlWhere = where == null || where.equals("") ? "" : "where " + where;
 		String sql = DELETE;
 		sql = sql.replace(TABLE_NAME, tableName).
-				replace(WHERE, sqlWhere).
-				replace("null", "");
+				replace(WHERE, where == null ? "" : where);
 		return sql;
 	}
 
@@ -233,5 +235,10 @@ public abstract class SqlMaker {
 	 */
 	public String makeClearSQL(Table table) {
 		return delete(table.getName(), null);
+	}
+
+	public String makeSelectionFromToSQL(Table table, String columns, String key, String index, int from, int to) {
+		// TODO... 应设为 abstract
+		return "";
 	}
 }

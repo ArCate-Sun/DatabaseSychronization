@@ -29,10 +29,14 @@ public enum  SqlType {
 	 * 				SqlType.MYSQL			=> MySQL
 	 * 				SqlType.ORACLE			=> Oracle
 	 * 				null					=> 未知或暂未支持的数据库
-	 * @throws SQLException
 	 */
-	public static SqlType getSqlType(Connection connection) throws SQLException {
-		return getSqlType(connection.getMetaData());
+	public static SqlType getSqlType(Connection connection) {
+		try {
+			return getSqlType(connection.getMetaData());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	/**
@@ -44,17 +48,22 @@ public enum  SqlType {
 	 * 				SqlType.MYSQL			=> MySQL
 	 * 				SqlType.ORACLE			=> Oracle
 	 * 				null					=> 未知或暂未支持的数据库
-	 * @throws SQLException
 	 */
-	public static SqlType getSqlType(DatabaseMetaData metaData) throws SQLException {
-		String productName = metaData.getDatabaseProductName();
-		switch (productName) {
-			case "MySQL":
-				return SqlType.MYSQL;
-			case "Microsoft SQL Server":
-				return SqlType.SQL_SERVER;
-			default:
-				return null;
+	public static SqlType getSqlType(DatabaseMetaData metaData) {
+		String productName = null;
+		try {
+			productName = metaData.getDatabaseProductName();
+			switch (productName) {
+				case "MySQL":
+					return SqlType.MYSQL;
+				case "Microsoft SQL Server":
+					return SqlType.SQL_SERVER;
+				default:
+					return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 

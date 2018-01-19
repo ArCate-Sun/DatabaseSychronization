@@ -1,6 +1,6 @@
 package cc.arcate.config;
 
-import cc.arcate.tools.Log;
+import cc.arcate.util.Log;
 
 import java.io.FileInputStream;
 import java.io.IOException;

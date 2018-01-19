@@ -1,4 +1,4 @@
-package cc.arcate.tools.sql.maker.impl;
+package cc.arcate.util.sql.maker.impl;
 
 import cc.arcate.sql.Column;
 import cc.arcate.sql.Table;
@@ -13,6 +13,8 @@ import java.util.Map;
  * ACat i lele.
  */
 public class SqlMakerForMySQL extends SqlMaker {
+
+	protected static final String SELECT_FROM_TO = "select {column_names} from {table_name} order by {key} asc limit {from}, {to} ";
 
 	@Override
 	public String makeCreationSQL(Table table) {
@@ -51,5 +53,24 @@ public class SqlMakerForMySQL extends SqlMaker {
 	@Override
 	public String makeClearSQL(Table table) {
 		return delete("`" + table + "`", null);
+	}
+
+	@Override
+	protected String selectFromTo(String tableName, String columnNames, String key, String index, int from, int to) {
+		String sqlCols = columnNames == null || columnNames.equals("") ? "*" : columnNames;
+		String sql = SELECT_FROM_TO;
+		sql = sql.replace(TABLE_NAME, tableName).
+				replace(COLUMN_NAMES, sqlCols).
+				replace(KEY, key).
+				replace(FROM, from + "").
+				replace(TO, to + "").
+				replace("null", "");
+
+		return sql;
+	}
+
+	@Override
+	public String makeSelectionFromToSQL(Table table, String columns, String key, String index, int from, int to) {
+		return this.selectFromTo("`" + table.getName() + "`", columns, key, index, from, to);
 	}
 }

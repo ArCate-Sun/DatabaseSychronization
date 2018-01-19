@@ -1,12 +1,12 @@
-package cc.arcate.tools.sql.maker;
+package cc.arcate.util.sql.maker;
 
-import cc.arcate.config.DBGlobal;
 import cc.arcate.sql.Column;
 import cc.arcate.sql.Table;
-import cc.arcate.tools.Tables;
-import cc.arcate.tools.sql.maker.impl.*;
+import cc.arcate.util.sql.maker.impl.*;
+import cc.arcate.config.DBGlobal;
 import cc.arcate.sql.SqlType;
-import com.hanbon.tools.sql.maker.impl.*;
+import cc.arcate.util.Tables;
+import com.hanbon.util.sql.maker.impl.*;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -191,6 +191,23 @@ public class SqlFactory {
 	}
 
 	/**
+	 * 组装查询数据表的 sql 语句
+	 *
+	 * @param table		数据表对象
+	 * @param columns	查询的键名
+	 * @param key		限制条件语句
+	 * @param index		优化索引语句
+	 * @return	查询数据表的 sql 语句
+	 */
+	public static String makeSelectionFromToSQL(Table table, String columns, String key, String index, int from, int to) {
+		return getSqlMaker(table.getSqlType()).makeSelectionFromToSQL(table, columns, key, index, from, to);
+	}
+
+	public static String makeSelectionFromToSQL(Table table, String columns, String key, String index, int from, int to, SqlType sqlType) {
+		return getSqlMaker(sqlType).makeSelectionFromToSQL(table, columns, key, index, from, to);
+	}
+
+	/**
 	 * 组装更新 sql 语句
 	 * 其数据库类型默认为 table 中的数据库类型
 	 *
@@ -295,5 +312,9 @@ public class SqlFactory {
 		System.out.println(SqlFactory.makeUpdateSQL(table, values, "id=1"));
 		System.out.println(SqlFactory.makeInsertSQL(table, values));
 
+	}
+
+	public static String makeCountAllRecordsSQL(Table table, SqlType sqlType) {
+		return getSqlMaker(sqlType).makeSelectionSQL(table, "count(*)", null, null);
 	}
 }

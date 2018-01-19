@@ -1,6 +1,6 @@
 package cc.arcate.sql;
 
-import cc.arcate.tools.sql.maker.SqlFactory;
+import cc.arcate.util.sql.maker.SqlFactory;
 
 /**
  * 键的属性
