@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<config>
+	<databases>
+		<max-connection-thread>100</max-connection-thread>
+		<sources>
+			<source>
+				<driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
+				<url>jdbc:sqlserver://192.168.0.250:1433;database=RoadCenter</url>
+				<username>sa</username>
+				<password>sjzhbkj026</password>
+				<max-connection-thread>20</max-connection-thread>
+			</source>
+			<source>
+				<driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
+				<url>jdbc:sqlserver://192.168.0.250:1433;database=RoadCenter2</url>
+				<username>sa</username>
+				<password>sjzhbkj026</password>
+			</source>
+		</sources>
+		<target>
+			<driver>oracle.jdbc.driver.OracleDriver</driver>
+			<url>jdbc:oracle:thin:@192.168.0.177:1521:orcl</url>
+			<username>system</username>
+			<password>root</password>
+		</target>
+	</databases>
+
+	<log>
+		<enable>true</enable>
+		<table>
+			<enable>true</enable>
+			<name>log</name>
+		</table>
+	</log>
+
+	<tables>
+
+		<max-copy-thread>100</max-copy-thread>
+		<max-count-each-copy>50</max-count-each-copy>
+		<sync-time-interval>10000</sync-time-interval>
+		<need-to-create>false</need-to-create>
+		<need-to-copy>true</need-to-copy>
+
+		<table>
+			<name>O_TRANSACTION</name>
+			<sync-type>additional</sync-type>
+			<key>DHM</key>
+		</table>
+
+		<table>
+			<name>W_TRANSACTION</name>
+			<sync-type>additional</sync-type>
+			<key>DHM</key>
+			<max-copy-thread>10</max-copy-thread>
+			<max-count-each-copy>500</max-count-each-copy>
+			<sync-time-interval>20000</sync-time-interval>
+			<need-to-create>true</need-to-create>
+			<need-to-copy>false</need-to-copy>
+		</table>
+
+		<table>
+			<name>C_IDEN_INFO</name>
+			<type>update</type>
+		</table>
+		<table>
+			<name>C_IDEN_CSC</name>
+			<type>update</type>
+		</table>
+		<table>
+			<name>O_REVISION_TAB</name>
+		</table>
+
+	</tables>
+
+
+</config>

@@ -136,4 +136,22 @@ class TableCfgTest {
 		assertEquals(TableCfg.isGlobalNeedToCreate(), this.cfg2.isNeedToCreate());
 	}
 
+	@Test
+	void isGlobalNeedToCopy() {
+		assertFalse(TableCfg.isGlobalNeedToCopy());
+	}
+
+	@Test
+	void setGlobalNeedToCopy() {
+		TableCfg.setGlobalNeedToCopy(true);
+		assertEquals(true, TableCfg.isGlobalNeedToCopy());
+		TableCfg.setGlobalNeedToCopy(null);
+		assertEquals(false, TableCfg.isGlobalNeedToCopy());
+	}
+
+	@Test
+	void isNeedToCopy() {
+		assertTrue(this.cfg1.isNeedToCopy());
+		assertEquals(TableCfg.isGlobalNeedToCopy(), this.cfg2.isNeedToCopy());
+	}
 }

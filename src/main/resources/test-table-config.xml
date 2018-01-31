@@ -4,7 +4,7 @@
 	<table-1>
 		<name>TABLE_1</name>
 		<sync-type>additional</sync-type>
-		<copy>true</copy>
+		<need-to-copy>true</need-to-copy>
 		<key>DHM</key>
 		<index>index_dhm</index>
 		<max-copy-thread>100</max-copy-thread>

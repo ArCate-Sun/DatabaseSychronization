@@ -13,11 +13,13 @@ public class TableCfg {
 	private static final int DEFAULT_MAX_COUNT_EACH_COPY = 500;		// 默认每次拷贝的记录数, 500条
 	private static final int DEFAULT_SYNC_TIME_INTERVAL = 600000;	// 默认同步间隔, 10分钟
 	private static final boolean DEFAULT_NEED_TO_CREATE = true;		// 默认是否需创建数据表, 需要
+	private static final boolean DEFAULT_NEED_TO_COPY = false;		// 默认是否需要拷贝过程, 不需要
 
 	private static int globalMaxCopyThread = DEFAULT_MAX_COPY_THREAD;
 	private static int globalMaxCountEachCopy = DEFAULT_MAX_COUNT_EACH_COPY;
 	private static int globalSyncTimeInterval = DEFAULT_SYNC_TIME_INTERVAL;
 	private static boolean globalNeedToCreate = DEFAULT_NEED_TO_CREATE;
+	private static boolean globalNeedToCopy = DEFAULT_NEED_TO_COPY;
 
 	private String name;
 	private SyncType type;
@@ -28,6 +30,7 @@ public class TableCfg {
 	private Integer maxCountEachCopy;
 	private Integer syncTimeInterval;
 	private Boolean needToCreate;
+	private Boolean needToCopy;
 
 	public TableCfg(Element node) {
 		this.name = Elements.getStringTextFromTagSelector(node, "name", null);
@@ -38,6 +41,8 @@ public class TableCfg {
 		this.maxCountEachCopy = Elements.getIntFromTagSelector(node, "max-count-each-copy", null);
 		this.syncTimeInterval = Elements.getIntFromTagSelector(node, "sync-time-interval", null);
 		this.needToCreate = Elements.getBooleanFromTagSelector(node, "need-to-create", null);
+		this.needToCopy = Elements.getBooleanFromTagSelector(node, "need-to-copy", null);
+
 	}
 
 	/**
@@ -134,11 +139,27 @@ public class TableCfg {
 	 * @param globalNeedToCreate	若为 null, 则设为默认值
 	 */
 	public static void setGlobalNeedToCreate(Boolean globalNeedToCreate) {
-		if (globalNeedToCreate != null) {
-			TableCfg.globalNeedToCreate = globalNeedToCreate;
-		} else {
-			TableCfg.globalNeedToCreate = DEFAULT_NEED_TO_CREATE;
-		}
+		TableCfg.globalNeedToCreate = globalNeedToCreate != null ? globalNeedToCreate : DEFAULT_NEED_TO_CREATE;
+	}
+
+	/**
+	 * 全局属性
+	 * 是否需要拷贝过程
+	 *
+	 * @return
+	 */
+	public static boolean isGlobalNeedToCopy() {
+		return globalNeedToCopy;
+	}
+
+	/**
+	 * 全局属性
+	 * 设置是否需要拷贝过程
+	 *
+	 * @param globalNeedToCopy	若为 null, 则设为默认值
+	 */
+	public static void setGlobalNeedToCopy(Boolean globalNeedToCopy) {
+		TableCfg.globalNeedToCopy = globalNeedToCopy != null ? globalNeedToCopy : DEFAULT_NEED_TO_COPY;
 	}
 
 	/**
@@ -214,4 +235,12 @@ public class TableCfg {
 		return needToCreate == null ? globalNeedToCreate : needToCreate;
 	}
 
+	/**
+	 * 是否需要拷贝过程
+	 *
+	 * @return
+	 */
+	public Boolean isNeedToCopy() {
+		return needToCopy == null ? globalNeedToCopy : needToCopy;
+	}
 }

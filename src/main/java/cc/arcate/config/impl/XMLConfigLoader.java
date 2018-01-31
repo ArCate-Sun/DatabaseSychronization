@@ -3,7 +3,7 @@ package cc.arcate.config.impl;
 import cc.arcate.config.entity.DatabaseCfg;
 import cc.arcate.config.entity.LogCfg;
 import cc.arcate.config.entity.TableCfg;
-import cc.arcate.config.interf.ConfigLoader;
+import cc.arcate.config.interf.ConfigLoaderInterf;
 import cc.arcate.util.Elements;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -11,7 +11,6 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,19 +22,12 @@ import java.util.Objects;
  * Created by ACat on 15/01/2018.
  * ACat i lele.
  */
-public class XMLConfigLoader implements ConfigLoader {
+public class XMLConfigLoader extends ConfigLoader {
 
-	private String configPath;                        // 配置文件路径
 	private Element root;
 
-	private LogCfg logCfg;
-
-	private List<DatabaseCfg> sourceCfgList = new ArrayList<>();
-	private DatabaseCfg targetCfg;
-
-	private List<TableCfg> tableCfgList = new ArrayList<>();
-
-	private XMLConfigLoader() {
+	protected XMLConfigLoader() {
+		super();
 	}
 
 	/**
@@ -46,6 +38,7 @@ public class XMLConfigLoader implements ConfigLoader {
 	 * @throws DocumentException
 	 */
 	private void initXMLConfigLoader(String xmlFilePath) throws DocumentException {
+		// 设置配置文件路径
 		this.configPath = xmlFilePath;
 
 		//创建SAXReader对象
@@ -71,7 +64,7 @@ public class XMLConfigLoader implements ConfigLoader {
 		Element databases = Elements.getElementFromTagSelector(this.root, "databases");
 
 		// 全局设置
-		int globalMaxConnectionThread = Elements.getIntFromTagSelector(databases, "max-connection-thread", null);
+		Integer globalMaxConnectionThread = Elements.getIntFromTagSelector(databases, "max-connection-thread", null);
 		DatabaseCfg.setGlobalMaxConnectionThread(globalMaxConnectionThread);
 
 		Element sources = Elements.getElementFromTagSelector(databases, "sources");
@@ -82,7 +75,7 @@ public class XMLConfigLoader implements ConfigLoader {
 		}
 
 		// 加载同步数据库设置
-		Element target = Elements.getElementFromTagSelector(this.root, "target");
+		Element target = Elements.getElementFromTagSelector(databases, "target");
 		this.targetCfg = new DatabaseCfg(target);
 
 	}
@@ -92,17 +85,19 @@ public class XMLConfigLoader implements ConfigLoader {
 	 */
 	private void loadTableConfig() {
 
-		Element tables = Elements.getElementFromTagSelector(this.root, "tables table");
+		Element tables = Elements.getElementFromTagSelector(this.root, "tables");
 
 		// 全局设置
 		Integer globalMaxCopyThread = Elements.getIntFromTagSelector(tables, "max-copy-thread", null);
 		Integer globalMaxCountEachCopy = Elements.getIntFromTagSelector(tables, "max-count-each-copy", null);
 		Integer globalSyncTimeInterval = Elements.getIntFromTagSelector(tables, "sync-time-interval", null);
 		Boolean globalNeedToCreate = Elements.getBooleanFromTagSelector(tables, "need-to-create", null);
+		Boolean globalNeedToCopy = Elements.getBooleanFromTagSelector(tables, "need-to-copy", null);
 		TableCfg.setGlobalMaxCopyThread(globalMaxCopyThread);
 		TableCfg.setGlobalMaxCountEachCopy(globalMaxCountEachCopy);
 		TableCfg.setGlobalSyncTimeInterval(globalSyncTimeInterval);
 		TableCfg.setGlobalNeedToCreate(globalNeedToCreate);
+		TableCfg.setGlobalNeedToCopy(globalNeedToCopy);
 
 		List<Element> tableList = tables.elements("table");
 		for (Element table : tableList) {
@@ -114,7 +109,7 @@ public class XMLConfigLoader implements ConfigLoader {
 	 * 加载配置文件
 	 *
 	 * @param xmlFilePath 配置文件绝对路径
-	 * @return ConfigLoader 对象
+	 * @return ConfigLoaderInterf 对象
 	 */
 	public static ConfigLoader loadXMLConfig(String xmlFilePath) {
 
@@ -144,8 +139,4 @@ public class XMLConfigLoader implements ConfigLoader {
 		return loadXMLConfig(Objects.requireNonNull(XMLConfigLoader.class.getClassLoader().getResource(xmlFilePath)).getPath());
 	}
 
-	@Override
-	public String getConfigPath() {
-		return configPath;
-	}
 }
