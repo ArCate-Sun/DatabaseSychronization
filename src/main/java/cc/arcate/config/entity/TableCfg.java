@@ -1,14 +1,7 @@
 package cc.arcate.config.entity;
 
-import cc.arcate.config.impl.XMLConfigLoader;
 import cc.arcate.util.Elements;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
-
-import java.io.File;
-import java.util.Objects;
 
 /**
  * Created by ACat on 26/01/2018.

@@ -1,4 +1,4 @@
-package cc.arcate;
+package cc.arcate.sql;
 
 /**
  * Created by ACat on 25/01/2018.

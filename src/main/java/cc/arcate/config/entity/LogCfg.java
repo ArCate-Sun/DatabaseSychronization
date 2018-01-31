@@ -1,14 +1,13 @@
 package cc.arcate.config.entity;
 
-import cc.arcate.Column;
-import cc.arcate.Type;
-import cc.arcate.Nullable;
-import cc.arcate.Table;
+import cc.arcate.sql.Column;
+import cc.arcate.sql.ColumnType;
+import cc.arcate.sql.Nullable;
+import cc.arcate.sql.Table;
 import cc.arcate.util.Elements;
 import org.dom4j.Element;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -41,14 +40,14 @@ public class LogCfg {
 		// id 键
 		Column colId = new Column();
 		colId.setName("id");
-		colId.setType(Type.INT);
+		colId.setType(ColumnType.INT);
 		colId.setAutoIncrement(true);
 		colId.setPrimaryKey(true);
 
 		// time 键
 		Column colTime = new Column();
 		colTime.setName("time");
-		colTime.setType(Type.DATETIME);
+		colTime.setType(ColumnType.DATETIME);
 		colTime.setNullable(Nullable.COLUMN_NO_NULLS);
 
 		// 记录日志的三个键
@@ -56,7 +55,7 @@ public class LogCfg {
 		for (int i = 0; i < 3; ++i) {
 			columns[i] = new Column();
 			columns[i].setNullable(Nullable.COLUMN_NULLABLE);
-			columns[i].setType(Type.CHAR);
+			columns[i].setType(ColumnType.CHAR);
 			columns[i].setSize(255);
 		}
 		columns[0].setName("type");

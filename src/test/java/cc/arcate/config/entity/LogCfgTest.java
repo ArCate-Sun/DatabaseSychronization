@@ -1,9 +1,9 @@
 package cc.arcate.config.entity;
 
-import cc.arcate.Column;
-import cc.arcate.Nullable;
-import cc.arcate.Table;
-import cc.arcate.Type;
+import cc.arcate.sql.Column;
+import cc.arcate.sql.Nullable;
+import cc.arcate.sql.Table;
+import cc.arcate.sql.ColumnType;
 import cc.arcate.config.impl.XMLConfigLoader;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -58,18 +58,18 @@ class LogCfgTest {
 		for (Column column : t1.getColumns()) {
 			switch (column.getName()) {
 				case "id":
-					assertEquals(Type.INT, column.getType());
+					assertEquals(ColumnType.INT, column.getType());
 					assertEquals(true, column.isAutoIncrement());
 					assertEquals(true, column.isPrimaryKey());
 					break;
 				case "time":
-					assertEquals(Type.DATETIME, column.getType());
+					assertEquals(ColumnType.DATETIME, column.getType());
 					assertEquals(Nullable.COLUMN_NO_NULLS, column.getNullable());
 					break;
 				case "type":
 				case "task":
 				case "log":
-					assertEquals(Type.CHAR, column.getType());
+					assertEquals(ColumnType.CHAR, column.getType());
 					assertEquals(255, column.getSize());
 					assertEquals(Nullable.COLUMN_NULLABLE, column.getNullable());
 					break;

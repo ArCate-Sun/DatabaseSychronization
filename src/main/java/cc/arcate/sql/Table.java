@@ -1,4 +1,4 @@
-package cc.arcate;
+package cc.arcate.sql;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package cc.arcate;
+package cc.arcate.sql;
 
 /**
  * Created by ACat on 25/01/2018.
@@ -6,7 +6,7 @@ package cc.arcate;
  */
 public class Column {
 	private String name;
-	private Type type;
+	private ColumnType type;
 	private int size;
 	private Nullable nullable;
 	private boolean primaryKey;
@@ -36,11 +36,11 @@ public class Column {
 		this.name = name;
 	}
 
-	public Type getType() {
+	public ColumnType getType() {
 		return type;
 	}
 
-	public void setType(Type type) {
+	public void setType(ColumnType type) {
 		this.type = type;
 	}
 
