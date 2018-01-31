@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<config>
+	<log-1>
+		<enable>true</enable>
+		<table>
+			<enable>true</enable>
+			<name>log</name>
+		</table>
+	</log-1>
+
+	<log-2>
+	</log-2>
+
+</config>

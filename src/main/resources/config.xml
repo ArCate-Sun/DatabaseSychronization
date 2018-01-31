@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<config>
+	<databases>
+		<max-connection-thread>10</max-connection-thread>
+		<sources>
+			<source>
+				<driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
+				<url>jdbc:sqlserver://192.168.0.250:1433;database=RoadCenter</url>
+				<username>sa</username>
+				<password>sjzhbkj026</password>
+				<!-- 数据库的最大线程数, 推荐为同步表个数的2倍, 默认20 -->
+				<max-connection-thread>20</max-connection-thread>
+			</source>
+		</sources>
+		<target>
+			<driver>oracle.jdbc.driver.OracleDriver</driver>
+			<url>jdbc:oracle:thin:@192.168.0.177:1521:orcl</url>
+			<username>system</username>
+			<password>root</password>
+		</target>
+	</databases>
+
+	<log>
+		<enable>true</enable>
+		<table>
+			<enable>true</enable>
+			<name>log</name>
+		</table>
+	</log>
+
+	<tables>
+
+		<max-copy-thread>10</max-copy-thread>
+		<max-count-each-copy>50</max-count-each-copy>
+		<sync-time-interval>600000</sync-time-interval>
+		<need-to-create>false</need-to-create>
+
+		<table>
+			<name>O_TRANSACTION</name>
+			<!-- type:
+				add		源数据表仅可能增加新数据
+				update	源数据表可能改变已有数据
+			-->
+			<type>add</type>
+			<!-- copy 是否启用拷贝过程, 只有 type 为 add 时有效 -->
+			<copy>true</copy>
+			<!-- key 表中递增的索引键名, 若为空, 则 type 只认为取 update 值  -->
+			<key>DHM</key>
+			<!-- 拷贝过程中的最大线程数 -->
+			<max-copy-thread>20</max-copy-thread>
+			<!-- 同步周期, 默认 10min -->
+			<sync-time-interval>5000</sync-time-interval>
+		</table>
+
+		<table>
+			<name>C_IDEN_INFO</name>
+			<type>update</type>
+		</table>
+		<!--<table>-->
+			<!--<name>C_IDEN_CSC</name>-->
+			<!--<type>update</type>-->
+		<!--</table>-->
+		<!--<table>-->
+			<!--<name>O_REVISION_TAB</name>-->
+			<!--<type>update</type>-->
+		<!--</table>-->
+		<!--<table>-->
+			<!--<name>P_FARETAB</name>-->
+			<!--<type>update</type>-->
+		<!--</table>-->
+		<!--<table>-->
+			<!--<name>P_CHARGEORG</name>-->
+			<!--<type>update</type>-->
+		<!--</table>-->
+		<!--<table>-->
+			<!--<name>P_OPERATOR</name>-->
+			<!--<type>update</type>-->
+		<!--</table>-->
+		<!--<table>-->
+			<!--<name>P_CONST</name>-->
+			<!--<type>update</type>-->
+		<!--</table>-->
+		<!--<table>-->
+			<!--<name>P_TRUCK_FARETAB</name>-->
+			<!--<type>update</type>-->
+		<!--</table>-->
+		<!--<table>-->
+			<!--<name>P_FARETAB_T</name>-->
+			<!--<type>update</type>-->
+		<!--</table>-->
+		<!--<table>-->
+			<!--<name>TBL_AREAPARAMDIC</name>-->
+			<!--<type>update</type>-->
+		<!--</table>-->
+		<!--<table>-->
+			<!--<name>P_UNITIVE_TAB</name>-->
+			<!--<type>update</type>-->
+		<!--</table>-->
+
+	</tables>
+
+
+</config>

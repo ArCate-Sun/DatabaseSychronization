@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<config>
+	<table-1>
+		<name>TABLE_1</name>
+		<sync-type>additional</sync-type>
+		<copy>true</copy>
+		<key>DHM</key>
+		<index>index_dhm</index>
+		<max-copy-thread>100</max-copy-thread>
+		<max-count-each-copy>100</max-count-each-copy>
+		<sync-time-interval>5000</sync-time-interval>
+		<need-to-create>false</need-to-create>
+	</table-1>
+
+	<table-2>
+		<name>TABLE_2</name>
+		<sync-type>force</sync-type>
+		<key>id</key>
+		<index>index_id</index>
+	</table-2>
+
+</config>

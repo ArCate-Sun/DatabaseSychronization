@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<config>
+	<database-1>
+		<driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
+		<url>jdbc:sqlserver://192.168.0.250:1433;database=RoadCenter</url>
+		<username>sa</username>
+		<password>sjzhbkj026</password>
+		<max-connection-thread>50</max-connection-thread>
+	</database-1>
+
+	<database-2>
+		<driver>oracle.jdbc.driver.OracleDriver</driver>
+		<url>jdbc:oracle:thin:@192.168.0.177:1521:orcl</url>
+		<username>system</username>
+		<password>root</password>
+	</database-2>
+
+</config>
