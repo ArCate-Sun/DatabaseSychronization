@@ -1,4 +1,4 @@
-package cc.arcate.sql;
+package cc.arcate.entity;
 
 /**
  * Created by ACat on 25/01/2018.
@@ -8,6 +8,7 @@ public class Column {
 	private String name;
 	private ColumnType type;
 	private int size;
+	private int decimalDigits;			// 小数部分的位数
 	private Nullable nullable;
 	private boolean primaryKey;
 	private boolean autoIncrement;
@@ -50,6 +51,14 @@ public class Column {
 
 	public void setSize(int size) {
 		this.size = size;
+	}
+
+	public int getDecimalDigits() {
+		return decimalDigits;
+	}
+
+	public void setDecimalDigits(int decimalDigits) {
+		this.decimalDigits = decimalDigits;
 	}
 
 	public Nullable getNullable() {

@@ -42,9 +42,9 @@
 				add		源数据表仅可能增加新数据
 				update	源数据表可能改变已有数据
 			-->
-			<type>add</type>
+			<type>additional</type>
 			<!-- copy 是否启用拷贝过程, 只有 type 为 add 时有效 -->
-			<copy>true</copy>
+			<need-to-copy>true</need-to-copy>
 			<!-- key 表中递增的索引键名, 若为空, 则 type 只认为取 update 值  -->
 			<key>DHM</key>
 			<!-- 拷贝过程中的最大线程数 -->

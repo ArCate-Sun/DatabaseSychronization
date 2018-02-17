@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 内含对 DOM 节点的一些简便操作方法
+ * 需要依赖 dom4j
+ *
  * Created by ACat on 26/01/2018.
  * ACat i lele.
  */

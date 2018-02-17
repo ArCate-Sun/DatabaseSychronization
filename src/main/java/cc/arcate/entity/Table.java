@@ -1,4 +1,4 @@
-package cc.arcate.sql;
+package cc.arcate.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +8,11 @@ import java.util.List;
  * ACat i lele.
  */
 public class Table {
-	
+
+
 	private String name;
 	private List<Column> columns = new ArrayList<>();
+	private SqlType sqlType;			// 数据库类型, 应取 SqlType 中的值
 
 	public Table() {}
 
@@ -40,5 +42,13 @@ public class Table {
 
 	public void setColumns(List<Column> columns) {
 		this.columns = columns;
+	}
+
+	public SqlType getSqlType() {
+		return sqlType;
+	}
+
+	public void setSqlType(SqlType sqlType) {
+		this.sqlType = sqlType;
 	}
 }

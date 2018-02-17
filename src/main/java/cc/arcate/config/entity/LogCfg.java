@@ -1,9 +1,9 @@
 package cc.arcate.config.entity;
 
-import cc.arcate.sql.Column;
-import cc.arcate.sql.ColumnType;
-import cc.arcate.sql.Nullable;
-import cc.arcate.sql.Table;
+import cc.arcate.entity.Column;
+import cc.arcate.entity.ColumnType;
+import cc.arcate.entity.Nullable;
+import cc.arcate.entity.Table;
 import cc.arcate.util.Elements;
 import org.dom4j.Element;
 
